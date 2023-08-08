@@ -1,6 +1,8 @@
-package produto;
+package solucao.produto;
 
 import java.util.ArrayList;
+
+import produto.Produto;
 
 /**
  * Classe que representa um repositório de produtos usando ArrayList como
@@ -11,7 +13,8 @@ import java.util.ArrayList;
  *
  * @author Adalberto
  */
-public class RepositorioProdutoArrayList implements RepositorioI {
+public class RepositorioProdutoArrayList implements
+		RepositorioProdutos<Produto> {
 
 	/**
 	 * A estrutura onde os produtos sao mantidos. Voce nao precisa se preocupar
@@ -19,15 +22,9 @@ public class RepositorioProdutoArrayList implements RepositorioI {
 	 */
 	private ArrayList<Produto> produtos;
 
-	/**
-	 * A posicao do ultimo elemento inserido no array de produtos. o valor
-	 * inicial é -1 para indicar que nenhum produto foi ainda guardado no array.
-	 */
-	private int index = -1;
-
 	public RepositorioProdutoArrayList(int size) {
 		super();
-		this.produtos = new ArrayList<>();
+		this.produtos = new ArrayList<Produto>();
 	}
 
 	/**
@@ -39,9 +36,9 @@ public class RepositorioProdutoArrayList implements RepositorioI {
 	 * @param codigo
 	 * @return
 	 */
-	
 	private int procurarIndice(int codigo) {
 		return this.produtos.indexOf(new Produto(codigo, null, 0, null));
+
 	}
 
 	/**
@@ -50,10 +47,13 @@ public class RepositorioProdutoArrayList implements RepositorioI {
 	 * @param codigo
 	 * @return
 	 */
-
 	public boolean existe(int codigo) {
+		boolean resp = false;
+
 		int i = this.procurarIndice(codigo);
-		return i == -1;
+		resp = (i == -1);
+
+		return resp;
 	}
 
 	/**
@@ -69,11 +69,12 @@ public class RepositorioProdutoArrayList implements RepositorioI {
 	 * utilizado.
 	 */
 	public void atualizar(Produto produto) {
-		if(!produtos.contains(produto)){
-			throw new RuntimeException("Elemento não existe");
+		if (!produtos.contains(produto)) {
+			throw new RuntimeException("Produto inexistente");
+		} else {
+			produtos.remove(produto);
+			produtos.add(produto);
 		}
-		produtos.add(produto);
-		produtos.remove(produto);
 	}
 
 	/**
@@ -84,12 +85,11 @@ public class RepositorioProdutoArrayList implements RepositorioI {
 	 * @param codigo
 	 */
 	public void remover(int codigo) {
-		int i = this.procurarIndice(codigo);
-		if(i != -1){
-			this.produtos.remove(i);
+		if (this.existe(codigo)) {
+			produtos.remove(new Produto(codigo, null, 0, null));
+		} else {
+			throw new RuntimeException("Produto inexistente");
 		}
-		throw new RuntimeException("Produto inexistente!");
-		
 	}
 
 	/**
@@ -97,13 +97,17 @@ public class RepositorioProdutoArrayList implements RepositorioI {
 	 * produto nao esteja armazenado
 	 * 
 	 * @param codigo
-	 * @return o produto com o determinado codigo passado na função
+	 * @return
 	 */
 	public Produto procurar(int codigo) {
-		int i = this.procurarIndice(codigo);
-		if(i != -1){
-			return this.produtos.get(codigo);
+		Produto resp = null;
+		int index = this.procurarIndice(codigo);
+		if (index != -1) {
+			resp = (Produto) this.produtos.get(index);
+		} else {
+			throw new RuntimeException("Produto inexistente");
 		}
-		throw new RuntimeException("Produto inexistente");
+
+		return resp;
 	}
 }

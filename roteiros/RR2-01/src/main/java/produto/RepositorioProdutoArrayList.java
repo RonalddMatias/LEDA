@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Adalberto
  */
-public class RepositorioProdutoArrayList implements RepositorioI {
+public class RepositorioProdutoArrayList<T extends Produto> implements RepositorioI<Produto> { // Não pode ser nada fora de Produto, isto é, os subtipos de produtos também serão considerados
 
 	/**
 	 * A estrutura onde os produtos sao mantidos. Voce nao precisa se preocupar
@@ -27,7 +27,7 @@ public class RepositorioProdutoArrayList implements RepositorioI {
 
 	public RepositorioProdutoArrayList(int size) {
 		super();
-		this.produtos = new ArrayList<>();
+		this.produtos = new ArrayList<Produto>();
 	}
 
 	/**

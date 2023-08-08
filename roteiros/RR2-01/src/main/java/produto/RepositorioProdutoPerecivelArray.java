@@ -14,7 +14,7 @@ package produto;
  * @author Adalberto
  *
  */
-public class RepositorioProdutoPerecivelArray extends RepositorioProdutoArrayList{
+public class RepositorioProdutoPerecivelArray extends RepositorioProdutoArrayList<ProdutoPerecivel>{
 
 	
 	

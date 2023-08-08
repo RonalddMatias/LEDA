@@ -14,16 +14,19 @@ package produto;
  * @author Adalberto
  *
  */
-public class RepositorioProdutoPerecivelArray extends RepositorioProdutoArrayList{
+public class RepositorioProdutoNaoPerecivelArray extends RepositorioProdutoArrayList<ProdutoNaoPerecivel>{
+	
+	/**
+	 * A posicao do ultimo elemento inserido no array de produtos. o valor
+	 * inicial é -1 para indicar que nenhum produto foi ainda guardado no array.
+	 */
 
-	
-	
-	public RepositorioProdutoPerecivelArray(int size) {
+	public RepositorioProdutoNaoPerecivelArray(int size) {
 		super(size);
 	}
 
-	public void inserir(ProdutoPerecivel produto){
-		if(produto instanceof ProdutoPerecivel){
+	public void inserir(ProdutoNaoPerecivel produto){
+		if(produto instanceof ProdutoNaoPerecivel){
 			super.inserir(produto);
 		}
 	}
@@ -31,8 +34,7 @@ public class RepositorioProdutoPerecivelArray extends RepositorioProdutoArrayLis
 	public void atualizar(ProdutoPerecivel produto){
 		if(produto instanceof ProdutoPerecivel){
 			super.atualizar(produto);
-	}
-
+		}
 
 	}
 }
