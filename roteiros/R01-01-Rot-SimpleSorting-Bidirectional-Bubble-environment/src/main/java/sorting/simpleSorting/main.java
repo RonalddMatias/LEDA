@@ -2,6 +2,8 @@ package sorting.simpleSorting;
 
 import java.util.Arrays;
 
+import sorting.variationsOfBubblesort.RecursiveBubbleSort;
+
 public class main {
     public static void main(String[] args) {
         BubbleSort<Integer> bubbleSort = new BubbleSort<Integer>();
@@ -19,5 +21,10 @@ public class main {
         Integer[] numeros3 = new Integer[]{77, 2, 5, 2};
         selectionSort.sort(numeros3, 0, 0);
         System.out.println(Arrays.toString(numeros3));
+
+        RecursiveBubbleSort<Integer> recursiveBubbleSort = new RecursiveBubbleSort<Integer>();
+        Integer[] numeros4 = new Integer[]{100, 1, 2,83, 0};
+        recursiveBubbleSort.sort(numeros4, 0, numeros4.length-1);
+        System.out.println(Arrays.toString(numeros4));
     }
 }
