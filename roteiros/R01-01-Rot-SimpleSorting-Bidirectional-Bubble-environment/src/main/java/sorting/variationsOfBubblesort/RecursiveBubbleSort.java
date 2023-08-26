@@ -22,8 +22,6 @@ public class RecursiveBubbleSort<T extends Comparable<T>> extends
 			if(array[leftIndex].compareTo(array[leftIndex+1]) > 0){
 				Util.swap(array, leftIndex, leftIndex+1);
 			}
-			System.out.println(Arrays.toString(array));
-			System.out.println();
 			sort(array, leftIndex+1, rightIndex);
 			sort(array, leftIndex, rightIndex-1);
 		}

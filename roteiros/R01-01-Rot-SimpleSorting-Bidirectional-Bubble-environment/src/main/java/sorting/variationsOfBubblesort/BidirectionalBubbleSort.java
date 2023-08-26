@@ -22,13 +22,11 @@ public class BidirectionalBubbleSort<T extends Comparable<T>> extends
 				for(int j = 0; j < array.length -1; j++){
 					if(array[j].compareTo(array[j+1]) >	 0){
 						Util.swap(array, j, j+1);
-						System.out.println(Arrays.toString(array));
 				}
 			}
 				for(int k = rightIndex; k > leftIndex; k--){
 					if(array[k].compareTo(array[k-1]) < 0){
 						Util.swap(array, k, k-1);
-						System.out.println(Arrays.toString(array));
 					}
 				}
 		}

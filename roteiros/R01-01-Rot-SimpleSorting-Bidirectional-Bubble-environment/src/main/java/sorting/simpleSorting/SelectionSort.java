@@ -15,9 +15,9 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSorting<T> {
 
 		if((leftIndex >= 0) && (rightIndex <= array.length) && (array.length > 0)){
 			int menorIndice = 0;
-			for(int i = 0; i < array.length; i++){
+			for(int i = leftIndex; i <= rightIndex; i++){
 			menorIndice = i;
-				for(int j = i + 1; j < array.length; j++){
+				for(int j = i + 1; j <= rightIndex; j++){
 					if(array[j].compareTo(array[i]) < 0){
 						menorIndice = j;
 				}
