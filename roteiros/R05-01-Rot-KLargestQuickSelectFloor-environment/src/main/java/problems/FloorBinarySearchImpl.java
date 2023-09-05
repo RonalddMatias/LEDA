@@ -20,7 +20,7 @@ public class FloorBinarySearchImpl implements Floor {
 
 
 	private int binarySearch(Integer[] array, Integer x, Integer floor, int leftIndex, int rightIndex) {
-		if((leftIndex >= 0)  && (rightIndex <= array.length) && (leftIndex != rightIndex) && (array.length > 0)){
+		if((leftIndex >= 0)  && (rightIndex < array.length) && (leftIndex != rightIndex) && (array.length > 0)){
 			if (leftIndex < rightIndex){
 				System.out.println(Arrays.toString(array));
 

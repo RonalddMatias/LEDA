@@ -1,5 +1,9 @@
 package orderStatistic;
 
+import java.util.Arrays;
+
+import util.Util;
+
 /**
  * Uma implementacao da interface KLargest que usa estatisticas de ordem para 
  * retornar um array com os k maiores elementos de um conjunto de dados/array.
@@ -29,8 +33,16 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 
 	@Override
 	public T[] getKLargest(T[] array, int k) {
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T[] Kestatisticas = (T[]) new Comparable[0];
+		if((array.length > 0) && (k >= 1) && (array != null) && (k <= array.length)){
+			Kestatisticas = Arrays.copyOfRange(Kestatisticas, 0, k);
+			for(int i = k; i>0; i--){
+				Kestatisticas[i-1] = orderStatistics(array, k);
+				k--;
+			}
+		}
+		System.out.println(Arrays.toString(Kestatisticas));
+		return Kestatisticas;	
 		//este metodo deve obrigatoriamente usar o orderStatistics abaixo.
 	}
 
@@ -45,8 +57,49 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 	 * @param k
 	 * @return
 	 */
-	public T orderStatistics(T[] array, int k){
-		// TODO Implement your code here
-		throw new UnsupportedOperationException("Not implemented yet!");		
+	public T orderStatistics(T[] array, int k){ // esse metodo vai descobir a estatistica de ordem
+		T out;
+		if(!((array.length > 0) && (k >= 1) && (array != null))){
+			out = null;
+		} else {
+			out = quick(array, k, 0, array.length-1);
+		}
+		return out;
+		
+	}
+
+	private T quick(T[] array, int k, int leftIndex, int rightIndex) {
+		if((leftIndex >= 0) && (array.length > 0) && (rightIndex <= array.length-1) && (leftIndex <= rightIndex)){
+			int indexPivot = partition(array, leftIndex, rightIndex);
+
+			if(k < indexPivot + 1){
+				return quick(array, k, leftIndex, indexPivot-1);
+			} else if (k > indexPivot + 1){
+				return quick(array, k, indexPivot + 1, rightIndex);
+			}
+			return array[indexPivot];
+		}	
+		return array[k-1];
+	}
+
+	public int partition(T[] array, int leftIndex, int rightIndex) {
+		T pivot = array[leftIndex]; // pivot como sendo o primeiro elemento.
+		int i = leftIndex;
+
+		for (int j = leftIndex + 1; j < rightIndex; j++) {
+			if(array[j].compareTo(pivot) <= 0){
+				i++;
+				Util.swap(array, i, j);
+			}
+		}
+		Util.swap(array, leftIndex, i);
+		System.out.println(Arrays.toString(array));
+		return i;
+	}
+
+	public static void main(String[] args) {
+		KLargestOrderStatisticsImpl k = new KLargestOrderStatisticsImpl<>();
+		Integer[] num = new Integer[]{-1,0,1, 2,3,4,10};
+		System.out.println(k.getKLargest(num, 2));
 	}
 }
