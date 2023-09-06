@@ -41,7 +41,6 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 				k--;
 			}
 		}
-		System.out.println(Arrays.toString(Kestatisticas));
 		return Kestatisticas;	
 		//este metodo deve obrigatoriamente usar o orderStatistics abaixo.
 	}
@@ -93,13 +92,6 @@ public class KLargestOrderStatisticsImpl<T extends Comparable<T>> implements KLa
 			}
 		}
 		Util.swap(array, leftIndex, i);
-		System.out.println(Arrays.toString(array));
 		return i;
-	}
-
-	public static void main(String[] args) {
-		KLargestOrderStatisticsImpl k = new KLargestOrderStatisticsImpl<>();
-		Integer[] num = new Integer[]{-1,0,1, 2,3,4,10};
-		System.out.println(k.getKLargest(num, 2));
 	}
 }

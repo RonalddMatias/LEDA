@@ -1,28 +1,24 @@
 package problems;
 
-import java.util.Arrays;
-
 import util.Util;
 
 public class FloorBinarySearchImpl implements Floor {
 
 	@Override
 	public Integer floor(Integer[] array, Integer x) {
-		if(array.length > 0 && x != null){
+		if(array.length > 0 && x != null && array != null){
 
 			QuickSort(array, 0, array.length-1);
-			System.out.println(Arrays.toString(array));
 
 			return binarySearch(array, x, null,0, array.length-1);
 		}
 		return null;
-	}
+	} 
 
 
 	private int binarySearch(Integer[] array, Integer x, Integer floor, int leftIndex, int rightIndex) {
 		if((leftIndex >= 0)  && (rightIndex < array.length) && (leftIndex != rightIndex) && (array.length > 0)){
 			if (leftIndex < rightIndex){
-				System.out.println(Arrays.toString(array));
 
 				int middle = (leftIndex + rightIndex) / 2;
 
@@ -67,11 +63,4 @@ public class FloorBinarySearchImpl implements Floor {
 		Util.swap(array, leftIndex, i);
 		return i;
 	}
-
-	public static void main(String[] args) {
-		FloorBinarySearchImpl floorBinarySearchImpl = new FloorBinarySearchImpl();
-		Integer[] num = new Integer[]{4,15,25,30,38};
-		System.out.println(floorBinarySearchImpl.floor(num, 3));
-	}
-
 }

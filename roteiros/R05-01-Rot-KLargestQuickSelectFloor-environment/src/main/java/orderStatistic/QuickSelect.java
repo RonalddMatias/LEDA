@@ -77,16 +77,7 @@ public class QuickSelect<T extends Comparable<T>> {
 			}
 
 		}
-
-		System.out.println(Arrays.toString(array));
 		Util.swap(array, leftIndex, i);
 		return i;
-	}
-	
-	public static void main(String[] args) {
-		QuickSelect quickSelect = new QuickSelect<>();
-		Integer[] num = new Integer[]{-1, 0, 1};
-		System.out.println(quickSelect.quickSelect(num, 1));
-		System.out.println(quickSelect.quickSelect(num, 2)); // [-1,2,4,10]
 	}
 }
