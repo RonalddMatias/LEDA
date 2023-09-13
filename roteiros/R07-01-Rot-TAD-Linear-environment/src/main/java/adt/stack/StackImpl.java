@@ -40,8 +40,10 @@ public class StackImpl<T> implements Stack<T> {
 		if(!(isFull())){
 			this.top += 1;
 			this.array[top] = element;
+		} else {
+			throw new StackOverflowException();
 		}
-		throw new StackOverflowException();
+		
 	}
 
 	@Override
