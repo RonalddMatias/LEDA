@@ -36,7 +36,7 @@ public class QueueImpl<T> implements Queue<T> {
 
 	// mover todos os elementos da esquerda 
 	private void shiftLeft() {
-		for(int i = 1; i <= array.length-1; i++){
+		for(int i = 0; i <= this.tail; i++){
 				array[i] = array[i+1];
 		}
 	}
