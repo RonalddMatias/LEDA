@@ -15,7 +15,7 @@ public class StackImpl<T> implements Stack<T> {
 	public T top() { // retorna o elemento do top
 		T top = null;
 		if(!isEmpty()){
-			top =  array[this.top];
+			top = this.array[this.top];
 		}
 		return top;
 	}
@@ -37,11 +37,11 @@ public class StackImpl<T> implements Stack<T> {
 	@Override
 	public void push(T element) throws StackOverflowException {
 		// ver se tem espaço
-		if(!(isFull())){
+		if(isFull()){
+			throw new StackOverflowException();
+		} else {
 			this.top += 1;
 			this.array[top] = element;
-		} else {
-			throw new StackOverflowException();
 		}
 		
 	}
@@ -49,10 +49,10 @@ public class StackImpl<T> implements Stack<T> {
 	@Override
 	public T pop() throws StackUnderflowException {
 		// tenho que ver se ela não esta vazia para poder remover elementos
-		if(!isEmpty()){
-			return array[this.top--];
+		if(isEmpty()){
+			throw new StackUnderflowException();
 		}
-		throw new StackUnderflowException();
+		return this.array[this.top--];
 	}
 
 }

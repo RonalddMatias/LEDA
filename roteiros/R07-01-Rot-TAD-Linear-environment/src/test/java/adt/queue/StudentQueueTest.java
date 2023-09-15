@@ -32,7 +32,7 @@ public class StudentQueueTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		queue1 = new CircularQueue<>(4);
+		queue1 = new QueueUsingStack<>(3);
 		queue2 = null;
 		queue3 = null;
 	}

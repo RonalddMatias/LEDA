@@ -50,7 +50,7 @@ public class QueueUsingStack<T> implements Queue<T> {
 	}
 
 	private void empilhaParaStack1(Stack<T> stack1, Stack<T> stack2) {
-		while(!this.stack2.isEmpty()){ // stack underflow
+		while(!this.stack2.isEmpty()){ 
 			T elemento = null;
 			try{
 				elemento = this.stack2.pop();
@@ -86,13 +86,16 @@ public class QueueUsingStack<T> implements Queue<T> {
 	}
 
 	@Override
-	public T head() { // se não é vazio, eu aponto para 
-		T result = null;
-		if(!isEmpty()){
-			
+	public T head() { 
+		if(isEmpty()){
+			return null;
 		}
+		T result;
+		
+		desempilhaParaStack2(this.stack1, this.stack2);
+		result = this.stack2.top();
+		empilhaParaStack1(this.stack1, this.stack2);
 		return result;
-		throw new UnsupportedOperationException("Not implemented yet!");
 	}
 
 	@Override
