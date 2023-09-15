@@ -40,10 +40,13 @@ public class QueueUsingStack<T> implements Queue<T> {
 		desempilhaParaStack2(this.stack1, this.stack2);
 
 		try{
-
-		} ct
-
+			head = this.stack1.pop();
+		} catch (StackUnderflowException e){
+			e.printStackTrace();
+		}
 		empilhaParaStack1(this.stack1, this.stack2);
+
+		return head;
 	}
 
 	private void empilhaParaStack1(Stack<T> stack1, Stack<T> stack2) {
