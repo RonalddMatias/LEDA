@@ -2,6 +2,8 @@ package adt.queue;
 
 import adt.stack.Stack;
 import adt.stack.StackImpl;
+import adt.stack.StackOverflowException;
+import adt.stack.StackUnderflowException;
 
 public class QueueUsingStack<T> implements Queue<T> {
 
@@ -15,32 +17,89 @@ public class QueueUsingStack<T> implements Queue<T> {
 
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(isFull()){
+			throw new QueueOverflowException();
+		}
+
+		try{
+			this.stack1.push(element);
+		} catch (StackOverflowException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	@Override
 	public T dequeue() throws QueueUnderflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+
+		if(isEmpty()){
+			throw new QueueUnderflowException();
+		}
+
+		T head = null;
+		desempilhaParaStack2(this.stack1, this.stack2);
+
+		try{
+
+		} ct
+
+		empilhaParaStack1(this.stack1, this.stack2);
+	}
+
+	private void empilhaParaStack1(Stack<T> stack1, Stack<T> stack2) {
+		while(!this.stack2.isEmpty()){ // stack underflow
+			T elemento = null;
+			try{
+				elemento = this.stack2.pop();
+			} catch (StackUnderflowException e){ // pega o elemento a ser removido
+				e.printStackTrace();
+			}
+
+			try {
+				this.stack1.push(elemento);
+			} catch (StackOverflowException e){ // adiciona o elemento a ser removido
+				e.printStackTrace();
+			}
+			
+		}
+	}
+
+	private void desempilhaParaStack2(Stack<T> stack1, Stack<T> stack2) {
+		while(!this.stack1.isEmpty()){
+			T elemento = null;
+
+			try{
+				elemento = this.stack1.pop(); // pega o elemento a ser removido
+			} catch (StackUnderflowException e){
+				e.printStackTrace();
+			}
+
+			try{
+				this.stack2.push(elemento);	
+			} catch (StackOverflowException e){ // adiciona o elemento a ser removido
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override
-	public T head() {
-		// TODO Auto-generated method stub
+	public T head() { // se não é vazio, eu aponto para 
+		T result = null;
+		if(!isEmpty()){
+			
+		}
+		return result;
 		throw new UnsupportedOperationException("Not implemented yet!");
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.stack1.isEmpty();
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return this.stack1.isFull();
 	}
 
 }
