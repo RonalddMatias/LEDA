@@ -40,7 +40,7 @@ public class QueueUsingStack<T> implements Queue<T> {
 		desempilhaParaStack2(this.stack1, this.stack2);
 
 		try{
-			head = this.stack1.pop();
+			head = this.stack2.pop();
 		} catch (StackUnderflowException e){
 			e.printStackTrace();
 		}
@@ -50,7 +50,7 @@ public class QueueUsingStack<T> implements Queue<T> {
 	}
 
 	private void empilhaParaStack1(Stack<T> stack1, Stack<T> stack2) {
-		while(!this.stack2.isEmpty()){ 
+		while(!this.stack2.isEmpty()){
 			T elemento = null;
 			try{
 				elemento = this.stack2.pop();
