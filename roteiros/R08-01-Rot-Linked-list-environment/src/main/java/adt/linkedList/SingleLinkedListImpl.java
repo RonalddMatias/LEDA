@@ -10,14 +10,23 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented!");
+		return this.head.getData() == null;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented!");
+		int size = 0;
+
+		if (isEmpty()){
+			return size;
+		} else {
+			SingleLinkedListNode<T> aux = getHead(); // é necessário para não perder a referência
+			while(!aux.isNIL()){ // enquanto não for nulo, incrementa
+				size++;
+				aux = aux.getNext(); // apontando para o proximo
+			}
+			return size;	
+		}
 	}
 
 	@Override
@@ -28,8 +37,7 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	@Override
 	public void insert(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented!");
+		SingleLinkedListNode<T> auxHead = this.head; 
 	}
 
 	@Override
