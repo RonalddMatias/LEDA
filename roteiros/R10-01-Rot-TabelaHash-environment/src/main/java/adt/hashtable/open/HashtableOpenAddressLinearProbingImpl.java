@@ -54,8 +54,8 @@ public class HashtableOpenAddressLinearProbingImpl<T extends Storable> extends
 				if(this.table[hash] != null){
 					if(this.table[hash].equals(element)){
 						this.table[hash] = new DELETED();
-					this.elements--;
-					break;
+						this.elements--;
+						break;
 					}
 				}
 				probe++;

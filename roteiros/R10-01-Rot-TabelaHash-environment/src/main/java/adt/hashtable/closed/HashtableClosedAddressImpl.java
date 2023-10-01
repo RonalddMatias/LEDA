@@ -1,8 +1,13 @@
 package adt.hashtable.closed;
 
+import java.util.LinkedList;
+
 import adt.hashtable.hashfunction.HashFunction;
+import adt.hashtable.hashfunction.HashFunctionClosedAddress;
 import adt.hashtable.hashfunction.HashFunctionClosedAddressMethod;
 import adt.hashtable.hashfunction.HashFunctionFactory;
+import adt.hashtable.open.HashtableOverflowException;
+import util.Util;
 
 public class HashtableClosedAddressImpl<T> extends
 		AbstractHashtableClosedAddress<T> {
@@ -53,32 +58,88 @@ public class HashtableClosedAddressImpl<T> extends
 	 * prime.
 	 */
 	int getPrimeAbove(int number) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int result = number;
+		while (!Util.isPrime(result)) {
+			result++;
+		}
+
+		return result;
 	}
 
 	@Override
 	public void insert(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(isFull()){
+			throw new HashtableOverflowException();
+		} else {
+			if(element != null){
+				int hash = this.hashFunction(element);
+
+				if(this.table[hash] == null){ // se a posição que eu to olhando não é nula, então significa que é uma colisão
+					this.table[hash] = new LinkedList<T>();
+				} else {
+					this.COLLISIONS++;
+				}
+
+				LinkedList<T> lista = (LinkedList<T>) this.table[hash]; // pegando a lista que tem naquele espaço
+				if(!lista.contains(element)){
+					lista.add(element);
+					this.elements++;
+				}
+			}
+		}
 	}
 
 	@Override
 	public void remove(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(!isEmpty() && element != null){
+			int hash = this.hashFunction(element);
+
+			if(this.table[hash] != null){
+				LinkedList<T> lista = (LinkedList<T>) this.table[hash];
+				if(lista.contains(element)){
+					lista.remove(element);
+					this.elements--;
+					this.COLLISIONS--;
+				}
+			}
+		}	
 	}
 
 	@Override
 	public T search(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T result = null;
+		if(!isEmpty() && element != null){
+			int hash = this.hashFunction(element);
+
+			if(this.table[hash] != null){
+				LinkedList<T> lista = (LinkedList<T>) this.table[hash];
+				if(lista.contains(element)){
+					result = element;
+				}
+			}
+		}
+		return result;
+
 	}
 
 	@Override
 	public int indexOf(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		int result = -1;
+		if(!isEmpty() && element != null){
+			int hash = this.hashFunction(element);
+
+			if(this.table[hash] != null){
+				LinkedList<T> lista = (LinkedList<T>) this.table[hash];
+				if(lista.contains(element)){
+					result = hash;
+				}
+			}
+		}
+		return result;
+	}
+
+	private int hashFunction(T element) {
+		return ((HashFunctionClosedAddress<T>) this.hashFunction).hash(element);
 	}
 
 }
