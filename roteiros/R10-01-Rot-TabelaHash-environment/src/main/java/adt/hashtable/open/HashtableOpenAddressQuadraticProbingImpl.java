@@ -16,89 +16,70 @@ public class HashtableOpenAddressQuadraticProbingImpl<T extends Storable>
 
 	@Override
 	public void insert(T element) {
+		
 		if(isFull()){
 			throw new HashtableOverflowException();
 		} else {
 			if(element != null && search(element) == null){
 				int probe = 0;
+				boolean found = false;
 
-				while(probe < table.length){
+				while(!found && probe < table.length){
 					int hash = hashFunction(element, probe);
 
 					if(this.table[hash] == null || this.table[hash].equals(deletedElement)){
 						this.table[hash] = element;
 						this.elements++;
-						break; // parar o meu loop
+						found = true; 
+					} else {
+						probe++; 
+						this.COLLISIONS += 1;
 					}
-					probe++; // se ja tiver um elemento(Colisão) eu devo andar com o meu probe
-					this.COLLISIONS += 1;
+					
 				}
 			}
+			
 		}
 	}
 
 	@Override
 	public void remove(T element) {
 		if(!isEmpty() && element != null){
-			int probe = 0;
-
-			while(probe < this.table.length){
-				int hash = hashFunction(element, probe);
-
-
-				// vendo se o elemento é igual 
-				if(this.table[hash] != null){
-					if(this.table[hash].equals(element)){
-						this.table[hash] = new DELETED();
-						this.elements--;
-						break;
-					}
-				}
-				probe++;
-			}
+			int index = indexOf(element);
+			 if(index != -1){ 
+				this.table[index] = new DELETED();
+				--this.elements; 
+			 }
 		}
 	}
 
 	@Override
 	public T search(T element) {
 		T result = null;
-		if(element != null){
-			int probe = 0;
-
-			while(probe < this.table.length){
-				int hash = hashFunction(element, probe);
-
-				if(this.table[hash] != null){
-					if(this.table[hash].equals(element)){
-						result = (T) this.table[hash];
-						break;
-					}
-				}
-				probe++;
-			}
+		if (element != null) {
+			int index = indexOf(element);
+			if (index != -1)
+				result = (T) this.table[index];
 		}
 		return result;
 	}
 
 	@Override
 	public int indexOf(T element) {
-		int index = -1;
-		if(!isEmpty() && element != null){
-			int probe = 0;
-			
-			while(probe < table.length){
-				int hash = hashFunction(element, probe);
-
-				if(this.table[hash] != null){
-					if(this.table[hash].equals(element)){
-						index = hash;
-						break;
-					}
+		int result = -1;
+		if (element != null) {
+			int i = 0;
+			while (result == -1 && i < this.capacity()) {
+				int hash = hashFunction(element, i);
+	
+				if (table[hash] != null && table[hash].equals(element)) {
+					result = hash;
+				} else {
+					++i;
 				}
-				probe++;
 			}
 		}
-		return index;
+		return result;
 	}
 
 	private int hashFunction(T element, int probe){
