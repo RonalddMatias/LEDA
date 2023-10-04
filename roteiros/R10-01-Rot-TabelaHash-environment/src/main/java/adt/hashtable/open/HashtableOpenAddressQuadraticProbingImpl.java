@@ -19,7 +19,7 @@ public class HashtableOpenAddressQuadraticProbingImpl<T extends Storable>
 		if(isFull()){
 			throw new HashtableOverflowException();
 		} else {
-			if(element != null){
+			if(element != null && search(element) == null){
 				int probe = 0;
 
 				while(probe < table.length){
