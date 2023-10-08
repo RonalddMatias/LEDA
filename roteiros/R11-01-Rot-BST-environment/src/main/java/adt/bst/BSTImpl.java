@@ -1,5 +1,7 @@
 package adt.bst;
 
+import javax.swing.text.html.parser.Element;
+
 public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	protected BSTNode<T> root;
@@ -36,14 +38,48 @@ public class BSTImpl<T extends Comparable<T>> implements BST<T> {
 
 	@Override
 	public BSTNode<T> search(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		BSTNode<T> result = new BSTNode<>();
+		if(!isEmpty() && element != null){ // quando eu for pesquisar eu tenho que ver se a minha bst está vazia.
+			result = search(element, this.root);
+		}
+		return result;
+	}
+
+	private BSTNode<T> search(T element, BSTNode<T> node){
+		BSTNode<T> result = node;
+
+		if(!node.getData().equals(element) || node != null){ // condição de parada
+			if(element.compareTo(node.getData()) < 0){
+				result = search(element, (BSTNode<T>) node.getLeft());
+			} else {
+				result = search(element, (BSTNode<T>) node.getRight());
+			}
+		}
+
+		return result;
 	}
 
 	@Override
 	public void insert(T element) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if(element != null){
+			insert(element, this.root);
+		}
+	}
+
+	private void insert(T element, BSTNode<T> node) {
+		if(node.isEmpty()){
+			node.setData(element); // setando o valor
+			node.setLeft(new BSTNode<>()); // criando um node vazio na esquerda.
+			node.setRight(new BSTNode<>()); // criando um node vazio na direira.
+			node.getLeft().setParent(node); // setando o parente do node a esquerda criado como sendo o node.
+			node.getRight().setParent(node); // setando o parente do node a direita criado como sendo o node.
+		} else {
+			if(element.compareTo(node.getData()) < 0){
+				insert(element, (BSTNode<T>) node.getLeft());
+			} else if (element.compareTo(node.getData()) > 0){
+				insert(element, (BSTNode<T>) node.getRight());
+			}
+		}
 	}
 
 	@Override
