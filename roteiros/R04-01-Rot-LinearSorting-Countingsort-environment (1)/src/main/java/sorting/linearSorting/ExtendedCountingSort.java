@@ -12,13 +12,6 @@ import sorting.AbstractSorting;
  */
 public class ExtendedCountingSort extends AbstractSorting<Integer> {
 
-	public static void main(String[] args) {
-		ExtendedCountingSort ex = new ExtendedCountingSort();
-		Integer[] n = new Integer[]{4,2,1,-4,-2,6};
-		ex.sort(n, 0, n.length-1);
-		System.out.println(Arrays.toString(n));
-	}
-
 	@Override
 	public void sort(Integer[] array, int leftIndex, int rightIndex) {
 		if(leftIndex != rightIndex && (leftIndex >= 0) && (rightIndex <= array.length) && (array.length > 0)){
@@ -33,7 +26,7 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 
 	private Integer[] negativeCounting(Integer[] array, int leftIndex, int rightIndex) {
 
-		//encontrando maior numero e menor numero
+		// searching the bigger and smaller number
 		int biggestNumber = biggestNumber(array, leftIndex, rightIndex);
 		int smallestNumber = smallestNumber(array, leftIndex, rightIndex);
 
@@ -66,7 +59,7 @@ public class ExtendedCountingSort extends AbstractSorting<Integer> {
 	private int smallestNumber(Integer[] array, int leftIndex, int rightIndex) {
 		int smallestNumber = 0;
 		for (int i = leftIndex; i <= rightIndex; i++) {
-			if(array[i].compareTo(smallestNumber) < 0){ // menor
+			if(array[i].compareTo(smallestNumber) < 0){
 				smallestNumber = array[i];
 			}
 		}

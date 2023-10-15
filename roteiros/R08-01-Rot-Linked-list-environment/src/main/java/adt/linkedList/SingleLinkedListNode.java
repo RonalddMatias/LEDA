@@ -3,6 +3,7 @@ package adt.linkedList;
 public class SingleLinkedListNode<T> {
 	protected T data;
 	protected SingleLinkedListNode<T> next;
+    public DoubleLinkedListNode<T> previous;
 
 	/**
 	 * Constructor of an empty (NIL) node
